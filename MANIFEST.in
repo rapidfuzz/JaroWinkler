@@ -1,0 +1,15 @@
+include setup.py
+include CMakeLists.txt
+include README.md
+include LICENSE
+include pyproject.toml
+include src/rapidfuzz/**/*.pyi
+include src/rapidfuzz/py.typed
+
+recursive-include src/cython CMakeLists.txt
+recursive-include src/cython *.hpp
+recursive-include src/cython *.pyx
+recursive-include src/cython *.pxd
+
+include extern/jarowinkler-cpp/LICENSE
+recursive-include extern/jarowinkler-cpp/jaro_winkler *.hpp

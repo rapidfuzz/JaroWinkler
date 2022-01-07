@@ -1,0 +1,11 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel",
+    "scikit-build",
+    "cmake",
+    "ninja",
+    "Cython==3.0.0a10",
+    "rapidfuzz_capi==1.0.2"
+]
+build-backend = "setuptools.build_meta"

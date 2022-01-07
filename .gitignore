@@ -1,0 +1,28 @@
+.vscode/
+__pycache__/
+.idea/
+build/
+_skbuild/
+rapidfuzz.egg-info/
+dist/
+*.data
+*.so
+*.o
+*.out
+test.py
+src/*.html
+.coverage
+coverage.xml
+
+# Sphinx documentation
+site/
+
+# benchmark results
+bench_results/
+
+# Hypothesis results
+.hypothesis/
+
+# Cython
+src/*.cpp
+
