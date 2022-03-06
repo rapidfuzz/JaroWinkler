@@ -7,7 +7,7 @@ with open('README.md', 'rt', encoding="utf8") as f:
 setup(
     name="jarowinkler",
     version="1.0.0",
-    url="https://github.com/fuzzy-string-matching/JaroWinkler",
+    url="https://github.com/maxbachmann/JaroWinkler",
     author="Max Bachmann",
     author_email="pypi@maxbachmann.de",
     description="library for fast approximate string matching using Jaro and Jaro-Winkler similarity",
