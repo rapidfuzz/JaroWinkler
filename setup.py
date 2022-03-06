@@ -6,7 +6,7 @@ with open('README.md', 'rt', encoding="utf8") as f:
 
 setup(
     name="jarowinkler",
-    version="1.0.0",
+    version="1.0.1",
     url="https://github.com/maxbachmann/JaroWinkler",
     author="Max Bachmann",
     author_email="pypi@maxbachmann.de",
@@ -26,7 +26,10 @@ setup(
     ],
 
     packages=["jarowinkler"],
+    package_data={"jarowinkler": [
+        "*.pyi",
+        "py.typed"
+    ]},
     python_requires=">=3.6",
-
     cmake_args=[f'-DRAPIDFUZZ_CAPI_PATH:STRING={rapidfuzz_capi.get_include()}']
 )
