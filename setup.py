@@ -6,11 +6,11 @@ with open('README.md', 'rt', encoding="utf8") as f:
 
 setup(
     name="jarowinkler",
-    version="0.0.1",
+    version="1.0.0",
     url="https://github.com/fuzzy-string-matching/JaroWinkler",
     author="Max Bachmann",
     author_email="pypi@maxbachmann.de",
-    description="",
+    description="library for fast approximate string matching using Jaro and Jaro-Winkler similarity",
     long_description=readme,
     long_description_content_type="text/markdown",
 
@@ -26,9 +26,6 @@ setup(
     ],
 
     packages=["jarowinkler"],
-    package_dir={'':'src'},
-    zip_safe=True,
-    include_package_data=True,
     python_requires=">=3.6",
 
     cmake_args=[f'-DRAPIDFUZZ_CAPI_PATH:STRING={rapidfuzz_capi.get_include()}']

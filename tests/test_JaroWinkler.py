@@ -4,13 +4,13 @@
 import unittest
 import pytest
 
-from jarowinkler import JaroWinkler
+from jarowinkler import jarowinkler_similarity
 
 class JaroWinklerTest(unittest.TestCase):
 
     def _jaro_winkler_similarity(self, s1, s2, result):
-        self.assertAlmostEqual(JaroWinkler.similarity(s1, s2), result, places=4)
-        self.assertAlmostEqual(JaroWinkler.similarity(s2, s1), result, places=4)
+        self.assertAlmostEqual(jarowinkler_similarity(s1, s2), result, places=4)
+        self.assertAlmostEqual(jarowinkler_similarity(s2, s1), result, places=4)
 
     def test_edge_case_lengths(self):
         self._jaro_winkler_similarity('', '', 0)

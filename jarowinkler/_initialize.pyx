@@ -7,19 +7,21 @@ from rapidfuzz_capi cimport (
     RF_String, RF_Scorer, RF_Kwargs, RF_ScorerFunc, RF_Preprocess, RF_KwargsInit,
     SCORER_STRUCT_VERSION, RF_Preprocessor,
     RF_ScorerFlags,
-    RF_SCORER_FLAG_RESULT_F64, RF_SCORER_FLAG_RESULT_U64, RF_SCORER_FLAG_MULTI_STRING, RF_SCORER_FLAG_SYMMETRIC
+    RF_SCORER_FLAG_RESULT_F64, RF_SCORER_FLAG_SYMMETRIC
 )
 from common cimport RF_StringWrapper, conv_sequence
-from libc.stdint cimport SIZE_MAX
 
 from libcpp cimport bool
+from libc.stdint cimport int64_t
 from libc.stdlib cimport malloc, free
 from cpython.pycapsule cimport PyCapsule_New, PyCapsule_IsValid, PyCapsule_GetPointer
 from cython.operator cimport dereference
 
 cdef extern from "scorer.hpp":
-    double jaro_winkler_similarity_func(const RF_String&, const RF_String&, double, double) nogil except +
-    bool JaroWinklerSimilarityInit( RF_ScorerFunc*, const RF_Kwargs*, size_t, const RF_String*) nogil except False
+    double jaro_similarity_func(        const RF_String&, const RF_String&, double) nogil except +
+    bool JaroSimilarityInit(        RF_ScorerFunc*, const RF_Kwargs*, int64_t, const RF_String*) nogil except False
+    double jaro_winkler_similarity_func(const RF_String &, const RF_String &, double, double) nogil except +
+    bool JaroWinklerSimilarityInit(RF_ScorerFunc *, const RF_Kwargs *, int64_t, const RF_String *) nogil except False
 
 cdef inline void preprocess_strings(s1, s2, processor, RF_StringWrapper* s1_proc, RF_StringWrapper* s2_proc) except *:
     cdef RF_Preprocessor* preprocess_context = NULL
@@ -41,7 +43,61 @@ cdef inline void preprocess_strings(s1, s2, processor, RF_StringWrapper* s1_proc
             s2 = processor(s2)
             s2_proc[0] = RF_StringWrapper(conv_sequence(s2), s2)
 
-def similarity(s1, s2, *, double prefix_weight=0.1, processor=None, score_cutoff=None):
+def jaro_similarity(s1, s2, *, processor=None, score_cutoff=None):
+    """
+    Calculates the jaro similarity
+
+    Parameters
+    ----------
+    s1 : Sequence[Hashable]
+        First string to compare.
+    s2 : Sequence[Hashable]
+        Second string to compare.
+    processor: callable, optional
+        Optional callable that is used to preprocess the strings before
+        comparing them. Default is None, which deactivates this behaviour.
+    score_cutoff : float, optional
+        Optional argument for a score threshold as a float between 0 and 1.0.
+        For ratio < score_cutoff 0 is returned instead. Default is 0,
+        which deactivates this behaviour.
+
+    Returns
+    -------
+    similarity : float
+        similarity between s1 and s2 as a float between 0 and 1.0
+
+    """
+    cdef double c_score_cutoff = 0.0 if score_cutoff is None else score_cutoff
+    cdef RF_StringWrapper s1_proc, s2_proc
+
+    if s1 is None or s2 is None:
+        return 0
+
+    preprocess_strings(s1, s2, processor, &s1_proc, &s2_proc)
+    return jaro_similarity_func(s1_proc.string, s2_proc.string, c_score_cutoff)
+
+cdef bool NoKwargsInit(RF_Kwargs* self, dict kwargs) except False:
+    if len(kwargs):
+        raise TypeError("Got unexpected keyword arguments: ", ", ".join(kwargs.keys()))
+
+    dereference(self).context = NULL
+    dereference(self).dtor = NULL
+    return True
+
+cdef bool GetScorerFlagsJaroSimilarity(const RF_Kwargs* self, RF_ScorerFlags* scorer_flags) nogil except False:
+    dereference(scorer_flags).flags = RF_SCORER_FLAG_RESULT_F64 | RF_SCORER_FLAG_SYMMETRIC
+    dereference(scorer_flags).optimal_score.f64 = 1.0
+    dereference(scorer_flags).worst_score.f64 = 0
+    return True
+
+cdef RF_Scorer JaroSimilarityContext 
+JaroSimilarityContext.version = SCORER_STRUCT_VERSION
+JaroSimilarityContext.kwargs_init = NoKwargsInit
+JaroSimilarityContext.get_scorer_flags = GetScorerFlagsJaroSimilarity
+JaroSimilarityContext.scorer_func_init = JaroSimilarityInit
+jaro_similarity._RF_Scorer = PyCapsule_New(&JaroSimilarityContext, NULL, NULL)
+
+def jarowinkler_similarity(s1, s2, *, double prefix_weight=0.1, processor=None, score_cutoff=None):
     """
     Calculates the jaro winkler similarity
 
@@ -81,11 +137,11 @@ def similarity(s1, s2, *, double prefix_weight=0.1, processor=None, score_cutoff
     preprocess_strings(s1, s2, processor, &s1_proc, &s2_proc)
     return jaro_winkler_similarity_func(s1_proc.string, s2_proc.string, prefix_weight, c_score_cutoff)
 
-cdef void KwargsDeinit(RF_Kwargs* self):
-    free(<void*>dereference(self).context)
+cdef void KwargsDeinit(RF_Kwargs * self):
+    free(<void *> dereference(self).context)
 
-cdef bool JaroWinklerKwargsInit(RF_Kwargs* self, dict kwargs) except False:
-    cdef double* prefix_weight = <double*>malloc(sizeof(double))
+cdef bool JaroWinklerKwargsInit(RF_Kwargs * self, dict kwargs) except False:
+    cdef double * prefix_weight = <double *> malloc(sizeof(double))
 
     if not prefix_weight:
         raise MemoryError
@@ -95,7 +151,7 @@ cdef bool JaroWinklerKwargsInit(RF_Kwargs* self, dict kwargs) except False:
     dereference(self).dtor = KwargsDeinit
     return True
 
-cdef bool GetScorerFlagsJaroWinklerSimilarity(const RF_Kwargs* self, RF_ScorerFlags* scorer_flags) nogil except False:
+cdef bool GetScorerFlagsJaroWinklerSimilarity(const RF_Kwargs * self, RF_ScorerFlags * scorer_flags) nogil except False:
     dereference(scorer_flags).flags = RF_SCORER_FLAG_RESULT_F64 | RF_SCORER_FLAG_SYMMETRIC
     dereference(scorer_flags).optimal_score.f64 = 1.0
     dereference(scorer_flags).worst_score.f64 = 0
@@ -106,4 +162,4 @@ JaroWinklerSimilarityContext.version = SCORER_STRUCT_VERSION
 JaroWinklerSimilarityContext.kwargs_init = JaroWinklerKwargsInit
 JaroWinklerSimilarityContext.get_scorer_flags = GetScorerFlagsJaroWinklerSimilarity
 JaroWinklerSimilarityContext.scorer_func_init = JaroWinklerSimilarityInit
-similarity._RF_Scorer = PyCapsule_New(&JaroWinklerSimilarityContext, NULL, NULL)
+jarowinkler_similarity._RF_Scorer = PyCapsule_New(&JaroWinklerSimilarityContext, NULL, NULL)

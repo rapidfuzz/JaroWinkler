@@ -126,11 +126,7 @@ template <typename Func, typename... Args>
 auto visit(const RF_String& str, Func&& f, Args&&... args)
 {
     switch(str.kind) {
-# define X_ENUM(kind, type) case kind:                                  \
-    {                                                                   \
-        const type* data = (const type*)str.data;                       \
-        return f(data, data + str.length, std::forward<Args>(args)...); \
-    }
+# define X_ENUM(kind, type) case kind: return f((type*)str.data, (type*)str.data + str.length, std::forward<Args>(args)...);
     LIST_OF_CASES()
 # undef X_ENUM
     default:
@@ -197,7 +193,7 @@ static inline RF_String convert_string(PyObject* py_str)
             nullptr,
             RF_UINT8,
             PyBytes_AS_STRING(py_str),
-            static_cast<std::size_t>(PyBytes_GET_SIZE(py_str)),
+            static_cast<int64_t>(PyBytes_GET_SIZE(py_str)),
             nullptr
         };
     } else {
@@ -218,7 +214,7 @@ static inline RF_String convert_string(PyObject* py_str)
             nullptr,
             kind,
             PyUnicode_DATA(py_str),
-            static_cast<std::size_t>(PyUnicode_GET_LENGTH(py_str)),
+            static_cast<int64_t>(PyUnicode_GET_LENGTH(py_str)),
             nullptr
         };
     }
@@ -231,12 +227,16 @@ static void scorer_deinit(RF_ScorerFunc* self)
 }
 
 template<typename CachedScorer>
-static inline bool scorer_func_wrapper_f64(const RF_ScorerFunc* self, const RF_String* str, double score_cutoff, double* result)
+static inline bool scorer_func_wrapper_f64(const RF_ScorerFunc* self, const RF_String* str, int64_t str_count, double score_cutoff, double* result)
 {
     CachedScorer& scorer = *(CachedScorer*)self->context;
     try {
+        if (str_count != 1)
+        {
+            throw std::logic_error("Only str_count == 1 supported");
+        }
         *result = visit(*str, [&](auto first, auto last){
-            return scorer.ratio(first, last, score_cutoff);
+            return scorer.similarity(first, last, score_cutoff);
         });
     } catch(...) {
       PyGILState_STATE gilstate_save = PyGILState_Ensure();
@@ -247,22 +247,22 @@ static inline bool scorer_func_wrapper_f64(const RF_ScorerFunc* self, const RF_S
     return true;
 }
 
-template<template <typename> class CachedScorer, typename Sentence, typename ...Args>
-static inline RF_ScorerFunc get_ScorerContext_f64(Sentence str, Args... args)
+template<template <typename> class CachedScorer, typename InputIt1, typename ...Args>
+static inline RF_ScorerFunc get_ScorerContext_f64(InputIt1 first1, InputIt1 last1, Args... args)
 {
+    using CharT1 = typename std::iterator_traits<InputIt1>::value_type;
     RF_ScorerFunc context;
-    context.context = (void*) new CachedScorer<Sentence>(str, args...);
+    context.context = (void*) new CachedScorer<CharT1>(first1, last1, args...);
 
-    context.call.f64 = scorer_func_wrapper_f64<CachedScorer<Sentence>>;
-    context.dtor = scorer_deinit<CachedScorer<Sentence>>;
+    context.call.f64 = scorer_func_wrapper_f64<CachedScorer<CharT1>>;
+    context.dtor = scorer_deinit<CachedScorer<CharT1>>;
     return context;
 }
 
 template<template <typename> class CachedScorer, typename ...Args>
-static inline bool scorer_init_f64(RF_ScorerFunc* self, size_t str_count, const RF_String* strings, Args... args)
+static inline bool scorer_init_f64(RF_ScorerFunc* self, int64_t str_count, const RF_String* strings, Args... args)
 {
     try {
-        /* todo support different string counts, which is required e.g. for SIMD */
         if (str_count != 1)
         {
             throw std::logic_error("Only str_count == 1 supported");

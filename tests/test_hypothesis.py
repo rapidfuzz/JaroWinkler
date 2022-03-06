@@ -2,7 +2,7 @@ from string import ascii_letters, digits, punctuation
 
 from hypothesis import given, assume, settings
 import hypothesis.strategies as st
-from jarowinkler import JaroWinkler
+from jarowinkler import jarowinkler_similarity
 
 def jaro_similarity(P, T):
     P_flag = [0] * (len(P) + 1)
@@ -71,15 +71,15 @@ HYPOTHESIS_ALPHABET = ascii_letters + digits + punctuation
 @given(s1=st.text(max_size=64), s2=st.text(max_size=64))
 @settings(max_examples=50, deadline=1000)
 def test_jaro_winkler_word(s1, s2):
-    assert isclose(jaro_winkler_similarity(s1, s2), JaroWinkler.similarity(s1, s2))
+    assert isclose(jaro_winkler_similarity(s1, s2), jarowinkler_similarity(s1, s2))
 
 @given(s1=st.text(min_size=65), s2=st.text(min_size=65))
 @settings(max_examples=50, deadline=1000)
 def test_jaro_winkler_block(s1, s2):
-    assert isclose(jaro_winkler_similarity(s1, s2), JaroWinkler.similarity(s1, s2))
+    assert isclose(jaro_winkler_similarity(s1, s2), jarowinkler_similarity(s1, s2))
 
 @given(s1=st.text(), s2=st.text())
 @settings(max_examples=50, deadline=1000)
 def test_jaro_winkler_random(s1, s2):
     print(s1, s2)
-    assert isclose(jaro_winkler_similarity(s1, s2), JaroWinkler.similarity(s1, s2))
+    assert isclose(jaro_winkler_similarity(s1, s2), jarowinkler_similarity(s1, s2))

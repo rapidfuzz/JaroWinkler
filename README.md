@@ -3,8 +3,8 @@
  JaroWinkler
 </h1>
 <p align="center">
-  <a href="https://github.com/maxbachmann/RapidFuzz/actions">
-    <img src="https://github.com/maxbachmann/RapidFuzz/workflows/Build/badge.svg"
+  <a href="https://github.com/maxbachmann/JaroWinkler/actions">
+    <img src="https://github.com/maxbachmann/JaroWinkler/workflows/Build/badge.svg"
          alt="Continous Integration">
   </a>
   <a href="https://pypi.org/project/jarowinkler/">
@@ -27,12 +27,12 @@
 
 ## :zap: Quickstart
 ```python
->>> from jarowinkler import Jaro, JaroWinkler
+>>> from jarowinkler import *
 
->>> Jaro.similarity("Johnathan", "Jonathan")
+>>> jaro_similarity("Johnathan", "Jonathan")
 0.8796296296296297
 
->>> JaroWinkler.similarity("Johnathan", "Jonathan")
+>>> jarowinkler_similarity("Johnathan", "Jonathan")
 0.9037037037037037
 ```
 
@@ -62,10 +62,10 @@ pip install git+https://github.com/maxbachmann/JaroWinkler.git@main
 
 Any algorithms in JaroWinkler can not only be used with strings, but with any arbitary sequences of hashable objects:
 ```python
-from jarowinkler import JaroWinkler
+from jarowinkler import jarowinkler_similarity
 
 
-JaroWinkler.similarity("this is an example".split(), ["this", "is", "a", "example"])
+jarowinkler_similarity("this is an example".split(), ["this", "is", "a", "example"])
 # 0.8666666666666667
 ```
 
@@ -79,17 +79,17 @@ class MyObject:
     def __hash__(self):
         return self.hash
 
-JaroWinkler.similarity([MyObject(1), MyObject(2)], [MyObject(1), MyObject(2), MyObject(3)])
+jarowinkler_similarity([MyObject(1), MyObject(2)], [MyObject(1), MyObject(2), MyObject(3)])
 # 0.9111111111111111
 ```
 
 All algorithms provide a `score_cutoff` parameter. This parameter can be used to filter out bad matches. Internally this allows JaroWinkler to select faster implementations in some places:
 
 ```python
-Jaro.similarity("Johnathan", "Jonathan", score_cutoff=0.9)
+jaro_similarity("Johnathan", "Jonathan", score_cutoff=0.9)
 # 0.0
 
-Jaro.similarity("Johnathan", "Jonathan", score_cutoff=0.85)
+jaro_similarity("Johnathan", "Jonathan", score_cutoff=0.85)
 # 0.8796296296296297
 ```
 
@@ -98,7 +98,7 @@ JaroWinkler can be used with RapidFuzz, which provides multiple methods to compu
 ```python
 from rapidfuzz import process
 
-process.cdist(["Johnathan", "Jonathan"], ["Johnathan", "Jonathan"], scorer=JaroWinkler.similarity)
+process.cdist(["Johnathan", "Jonathan"], ["Johnathan", "Jonathan"], scorer=jarowinkler_similarity)
 array([[1.       , 0.9037037],
        [0.9037037, 1.       ]], dtype=float32)
 ```

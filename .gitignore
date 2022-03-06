@@ -3,7 +3,7 @@ __pycache__/
 .idea/
 build/
 _skbuild/
-rapidfuzz.egg-info/
+*.egg-info/
 dist/
 *.data
 *.so
@@ -13,6 +13,8 @@ test.py
 src/*.html
 .coverage
 coverage.xml
+.venv/
+.coveragerc
 
 # Sphinx documentation
 site/
@@ -24,5 +26,5 @@ bench_results/
 .hypothesis/
 
 # Cython
-src/*.cpp
+*.cxx
 

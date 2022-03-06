@@ -1,7 +1,7 @@
 # distutils: language=c++
 # cython: language_level=3, binding=True, linetrace=True
 
-from libc.stdint cimport uint64_t
+from libc.stdint cimport uint64_t, int64_t
 from libc.stdlib cimport malloc, free
 from libcpp.utility cimport move
 from cpython.object cimport PyObject
@@ -28,7 +28,7 @@ cdef inline RF_String hash_array(arr) except *:
     # TODO on Cpython this does not require any copies
     cdef RF_String s_proc
     cdef Py_UCS4 typecode = <Py_UCS4>arr.typecode
-    s_proc.length = <size_t>len(arr)
+    s_proc.length = <int64_t>len(arr)
 
     s_proc.data = malloc(s_proc.length * sizeof(uint64_t))
 
@@ -76,7 +76,7 @@ cdef inline RF_String hash_array(arr) except *:
 
 cdef inline RF_String hash_sequence(seq) except *:
     cdef RF_String s_proc
-    s_proc.length = <size_t>len(seq)
+    s_proc.length = <int64_t>len(seq)
 
     s_proc.data = malloc(s_proc.length * sizeof(uint64_t))
 
