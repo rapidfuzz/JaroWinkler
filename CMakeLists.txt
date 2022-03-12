@@ -12,7 +12,6 @@ project(jarowinkler LANGUAGES C CXX)
 
 find_package(PythonExtensions REQUIRED)
 find_package(Python COMPONENTS Interpreter Development)
-find_package(Cython REQUIRED)
 
 set(JAROWINKLER_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
