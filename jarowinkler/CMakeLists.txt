@@ -4,7 +4,7 @@ function(create_cython_target _name)
     else()
         find_package(Cython REQUIRED)
         # should use target_include_directories once this is supported by scikit-build
-        include_directories(${JAROWINKLER_BASE_DIR}/jarowinkler)
+        include_directories(${JW_BASE_DIR}/jarowinkler)
         add_cython_target(${_name} CXX)
         set(${_name} ${_name} PARENT_SCOPE)
     endif()
@@ -13,9 +13,7 @@ endfunction(create_cython_target)
 create_cython_target(_initialize)
 add_library(_initialize MODULE ${_initialize})
 target_compile_features(_initialize PUBLIC cxx_std_14)
-target_include_directories(_initialize PRIVATE
-    ${JAROWINKLER_BASE_DIR}/extern/jarowinkler-cpp/
-    ${RAPIDFUZZ_CAPI_PATH}
-    ${JAROWINKLER_BASE_DIR}/jarowinkler)
+target_include_directories(_initialize PRIVATE ${RF_CAPI_PATH} ${JW_BASE_DIR}/jarowinkler)
+target_link_libraries(_initialize PRIVATE jaro_winkler::jaro_winkler)
 python_extension_module(_initialize)
 install(TARGETS _initialize LIBRARY DESTINATION jarowinkler)
