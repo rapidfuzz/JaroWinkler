@@ -12,7 +12,22 @@ project(jarowinkler LANGUAGES C CXX)
 
 find_package(PythonExtensions REQUIRED)
 find_package(Python COMPONENTS Interpreter Development)
+include(FetchContent)
 
-set(JAROWINKLER_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(JW_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+
+find_package(jaro_winkler 1.0.0 EXACT QUIET)
+if (jaro_winkler_FOUND)
+    message("Using system supplied version of jaro_winkler")
+else()
+    message("Using FetchContent to load jaro_winkler")
+    FetchContent_Declare(
+        jaro_winkler
+        GIT_REPOSITORY https://github.com/maxbachmann/jarowinkler-cpp.git
+        GIT_TAG 06c5f9876ea4cc4ea4e0080e87b315284a2f55a8 # v1.0.0
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_MakeAvailable(jaro_winkler)
+endif()
 
 add_subdirectory(jarowinkler)

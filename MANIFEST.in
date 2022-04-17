@@ -9,6 +9,3 @@ include jarowinkler/py.typed
 
 recursive-include jarowinkler CMakeLists.txt
 recursive-include jarowinkler *.hpp *.pyx *.pxd *.cxx
-
-include extern/jarowinkler-cpp/LICENSE
-recursive-include extern/jarowinkler-cpp/jaro_winkler *.hpp
