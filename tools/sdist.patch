@@ -1,0 +1,12 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 6efb23f..cd80bc3 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -4,7 +4,6 @@ requires = [
+     "scikit-build>=0.13.0",
+     "cmake; platform_machine not in 'armv7l|armv6l|arm64|aarch64'",
+     "ninja; platform_system!='Windows' and platform_machine not in 'armv7l|armv6l|arm64|aarch64'",
+-    "Cython==3.0.0a10",
+     "rapidfuzz_capi==1.0.5"
+ ]
+ build-backend = "setuptools.build_meta"
