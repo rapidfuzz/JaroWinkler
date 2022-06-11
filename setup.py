@@ -6,7 +6,7 @@ with open('README.md', 'rt', encoding="utf8") as f:
 
 setup(
     name="jarowinkler",
-    version="1.0.2",
+    version="1.0.3",
     url="https://github.com/maxbachmann/JaroWinkler",
     author="Max Bachmann",
     author_email="pypi@maxbachmann.de",
