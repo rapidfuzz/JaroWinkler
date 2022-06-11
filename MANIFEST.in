@@ -9,3 +9,4 @@ include jarowinkler/py.typed
 
 recursive-include jarowinkler CMakeLists.txt
 recursive-include jarowinkler *.hpp *.pyx *.pxd *.cxx
+recursive-include tests *

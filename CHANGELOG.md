@@ -1,6 +1,9 @@
 ## Changelog
 
 ## [1.0.3] - 2022-06-11
+#### Added
+- added tests to sdist
+
 #### Changed
 - Allow installation from system installed version of jarowinkler-cpp
 - use system version of cmake on arm platforms, since the cmake package fails to compile
