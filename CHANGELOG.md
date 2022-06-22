@@ -2,6 +2,7 @@
 
 ## [1.0.3] - 2022-06-11
 #### Added
+- add wheels for PyPy3.9
 - added tests to sdist
 
 #### Changed
