@@ -48,7 +48,7 @@ jobs:
       - uses: actions/setup-python@v2
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.3.1
+        uses: pypa/cibuildwheel@v2.7.0
         with:
           output-dir: wheelhouse
 
@@ -105,7 +105,7 @@ jobs:
       - uses: actions/setup-python@v2
 
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.3.1
+        uses: pypa/cibuildwheel@v2.7.0
         with:
           output-dir: wheelhouse
 
@@ -155,7 +155,7 @@ jobs:
         name: Set up QEMU
 
       - name: Build wheel
-        uses: pypa/cibuildwheel@v2.3.1
+        uses: pypa/cibuildwheel@v2.7.0
         with:
           output-dir: wheelhouse
 
