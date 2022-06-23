@@ -1,5 +1,10 @@
 ## Changelog
 
+### [1.0.4] - 2022-06-23
+#### Changed
+- add fallback implementations of `jarowinkler-cpp` back to wheel,
+  since some package building systems like piwheels can't clone sources
+
 ## [1.0.3] - 2022-06-11
 #### Added
 - add wheels for PyPy3.9

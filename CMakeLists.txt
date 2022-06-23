@@ -16,18 +16,12 @@ include(FetchContent)
 
 set(JW_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
-find_package(jaro_winkler 1.0.0 QUIET)
+find_package(jaro_winkler 1.0.1 QUIET)
 if (jaro_winkler_FOUND)
     message("Using system supplied version of jaro_winkler")
 else()
-    message("Using FetchContent to load jaro_winkler")
-    FetchContent_Declare(
-        jaro_winkler
-        GIT_REPOSITORY https://github.com/maxbachmann/jarowinkler-cpp.git
-        GIT_TAG 99c236d34e9f4cff9f700c9913487c3c7515f220 # v1.0.1
-        GIT_SHALLOW TRUE
-    )
-    FetchContent_MakeAvailable(jaro_winkler)
+    message("Using packaged version of jaro_winkler")
+    add_subdirectory(extern/jarowinkler-cpp)
 endif()
 
 add_subdirectory(jarowinkler)
