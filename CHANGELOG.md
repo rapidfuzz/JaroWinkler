@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.0.5] - 2022-06-29
+#### Fixed
+- treat hash for -1 and -2 as different
+
 ### [1.0.4] - 2022-06-23
 #### Changed
 - add fallback implementations of `jarowinkler-cpp` back to wheel,

@@ -12,6 +12,9 @@ class JaroWinklerTest(unittest.TestCase):
         self.assertAlmostEqual(jarowinkler_similarity(s1, s2), result, places=4)
         self.assertAlmostEqual(jarowinkler_similarity(s2, s1), result, places=4)
 
+    def test_hash_special_case(self):
+        self._jaro_winkler_similarity([0, -1], [0, -2], 0.6666)
+
     def test_edge_case_lengths(self):
         self._jaro_winkler_similarity('', '', 0)
         self._jaro_winkler_similarity('0', '0', 1)
