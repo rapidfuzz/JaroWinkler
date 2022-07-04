@@ -14,7 +14,7 @@ find_package(PythonExtensions REQUIRED)
 find_package(Python COMPONENTS Interpreter Development)
 include(FetchContent)
 
-set(JW_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(JW_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 find_package(jaro_winkler 1.0.1 QUIET)
 if (jaro_winkler_FOUND)
@@ -24,4 +24,4 @@ else()
     add_subdirectory(extern/jarowinkler-cpp)
 endif()
 
-add_subdirectory(jarowinkler)
+add_subdirectory(src/jarowinkler)

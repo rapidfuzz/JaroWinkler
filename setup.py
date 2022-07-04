@@ -26,6 +26,7 @@ setup(
     ],
 
     packages=["jarowinkler"],
+    package_dir={'jarowinkler': 'src'},
     package_data={"jarowinkler": [
         "*.pyi",
         "py.typed"

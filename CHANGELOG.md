@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.1.0] - 2022-07-04
+#### Changed
+- change src layout to make package import from root directory possible
+
 ### [1.0.5] - 2022-06-29
 #### Fixed
 - treat hash for -1 and -2 as different
