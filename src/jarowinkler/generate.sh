@@ -7,4 +7,4 @@ generate_cython()
   echo "Generated $curdir/$1.cxx"
 }
 
-generate_cython _initialize
+generate_cython _initialize_cpp

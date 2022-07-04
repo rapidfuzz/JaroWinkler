@@ -182,8 +182,8 @@ jobs:
       # The cythonized files allow installation from the sdist without cython
       - name: Generate cython
         run: |
-          chmod +x ./jarowinkler/src/generate.sh
-          ./jarowinkler/src/generate.sh
+          chmod +x ./src/jarowinkler/generate.sh
+          ./src/jarowinkler/generate.sh
 
       - name: Build sdist
         run: |
