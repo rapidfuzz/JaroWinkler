@@ -1,6 +1,6 @@
 __author__: str = "Max Bachmann"
 __license__: str = "MIT"
-__version__: str = "1.0.5"
+__version__: str = "1.1.0"
 
 def _fallback_import(module: str, name: str):
     import importlib
