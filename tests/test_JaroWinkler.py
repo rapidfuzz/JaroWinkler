@@ -4,8 +4,16 @@
 import unittest
 import pytest
 
-from jarowinkler import jarowinkler_similarity
+from jarowinkler import _initialize_py, _initialize_cpp
 
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a - b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+def jarowinkler_similarity(*args, **kwargs):
+    sim1 = _initialize_py.jarowinkler_similarity(*args, **kwargs)
+    sim2 = _initialize_cpp.jarowinkler_similarity(*args, **kwargs)
+    assert isclose(sim1, sim2)
+    return sim1
 class JaroWinklerTest(unittest.TestCase):
 
     def _jaro_winkler_similarity(self, s1, s2, result):

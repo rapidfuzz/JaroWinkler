@@ -15,5 +15,6 @@ def jaro_similarity(
 
 def jarowinkler_similarity(
     s1: S1, s2: S2, *,
+    prefix_weight: float = 0.1,
     processor: Optional[Callable[[Union[S1, S2]], _StringType]] = None,
     score_cutoff: Optional[float] = 0) -> float: ...

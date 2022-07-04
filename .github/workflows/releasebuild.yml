@@ -196,6 +196,11 @@ jobs:
         run: |
           python -m mypy.stubtest rapidfuzz --ignore-missing-stub
 
+      - name: Test with pytest
+        run: |
+          pytest tests
+          python -m pytest tests
+
       - uses: actions/upload-artifact@v2
         with:
           path: dist/*.tar.gz

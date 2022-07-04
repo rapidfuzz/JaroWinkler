@@ -3,6 +3,11 @@
 ### [1.1.0] - 2022-07-04
 #### Changed
 - change src layout to make package import from root directory possible
+- added pure python fallback for all implementations with the following exceptions:
+  - no support for sequences of hashables. Only strings supported so far
+
+#### Fixed
+- fixed type hints of jarowinkler_similarity
 
 ### [1.0.5] - 2022-06-29
 #### Fixed

@@ -1,8 +1,17 @@
 from string import ascii_letters, digits, punctuation
 
-from hypothesis import given, assume, settings
+from hypothesis import given, settings
 import hypothesis.strategies as st
-from jarowinkler import jarowinkler_similarity
+from jarowinkler import _initialize_py, _initialize_cpp
+
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a - b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
+def jarowinkler_similarity(*args, **kwargs):
+    sim1 = _initialize_py.jarowinkler_similarity(*args, **kwargs)
+    sim2 = _initialize_cpp.jarowinkler_similarity(*args, **kwargs)
+    assert isclose(sim1, sim2)
+    return sim1
 
 def jaro_similarity(P, T):
     P_flag = [0] * (len(P) + 1)

@@ -4,11 +4,11 @@ include CMakeLists.txt
 include README.md
 include LICENSE
 include pyproject.toml
-include jarowinkler/*.pyi
-include jarowinkler/py.typed
+include src/jarowinkler/*.pyi
+include src/jarowinkler/py.typed
 
-recursive-include jarowinkler CMakeLists.txt
-recursive-include jarowinkler *.hpp *.pyx *.pxd *.cxx
+recursive-include src/jarowinkler CMakeLists.txt
+recursive-include src/jarowinkler *.hpp *.pyx *.pxd *.cxx
 recursive-include tests *
 
 include extern/jarowinkler-cpp/LICENSE
