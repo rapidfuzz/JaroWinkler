@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.1.1] - 2022-07-09
+#### Fixed
+- fix missing type stubs
+
 ### [1.1.0] - 2022-07-04
 #### Changed
 - change src layout to make package import from root directory possible

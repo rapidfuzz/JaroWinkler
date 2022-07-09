@@ -11,7 +11,7 @@ with open('README.md', 'rt', encoding="utf8") as f:
 
 setup_args = {
     "name": "jarowinkler",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "url": "https://github.com/maxbachmann/JaroWinkler",
     "author": "Max Bachmann",
     "author_email": "pypi@maxbachmann.de",
@@ -31,11 +31,8 @@ setup_args = {
     ],
 
     "packages": ["jarowinkler"],
-    "package_dir": {'jarowinkler': 'src/jarowinkler'},
-    "package_data": {"src/jarowinkler": [
-        "*.pyi",
-        "py.typed"
-    ]},
+    "package_dir": {'': 'src'},
+    "package_data": {"jarowinkler": ["*.pyi", "py.typed"]},
     "python_requires": ">=3.6"
 }
 
