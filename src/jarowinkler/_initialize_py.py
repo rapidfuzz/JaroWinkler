@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2022 Max Bachmann
 
-from py import process
-
 def _jaro_calculate_similarity(P_len: int, T_len: int, CommonChars: int, Transpositions: int) -> float:
     Transpositions //= 2
     Sim = 0
