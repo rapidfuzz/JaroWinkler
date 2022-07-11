@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.1.2] - 2022-07-11
+#### Fixed
+- remove incorrect module import
+
 ### [1.1.1] - 2022-07-09
 #### Fixed
 - fix missing type stubs
