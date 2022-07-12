@@ -194,7 +194,7 @@ jobs:
 
       - name: Test type stubs
         run: |
-          python -m mypy.stubtest rapidfuzz --ignore-missing-stub
+          python -m mypy.stubtest jarowinkler
 
       - name: Test with pytest
         run: |
