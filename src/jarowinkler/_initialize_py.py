@@ -3,7 +3,7 @@
 
 def _jaro_calculate_similarity(P_len: int, T_len: int, CommonChars: int, Transpositions: int) -> float:
     Transpositions //= 2
-    Sim = 0
+    Sim = 0.0
     Sim += CommonChars / P_len
     Sim += CommonChars / T_len
     Sim += (CommonChars - Transpositions) / CommonChars
