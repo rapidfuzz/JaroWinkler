@@ -15,23 +15,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [auto32, auto64]
+        arch: [all]
         python_tag: ["cp36-*", "cp37-*", "cp38-*", "cp39-*", "cp310-*", "pp37-*", "pp38-*", "pp39-*"]
         exclude:
-          # PyPy only supports x86_64 on Windows
-          - arch: auto32
-            python_tag: "pp37-*"
-          - arch: auto32
-            python_tag: "pp38-*"
-          - arch: auto32
-            python_tag: "pp39-*"
-
           # PyPy Windows is currently broken in scikit-build
-          - arch: auto64
+          - arch: all
             python_tag: "pp37-*"
-          - arch: auto64
+          - arch: all
             python_tag: "pp38-*"
-          - arch: auto64
+          - arch: all
             python_tag: "pp39-*"
     env:
       CIBW_BUILD: ${{matrix.python_tag}}
