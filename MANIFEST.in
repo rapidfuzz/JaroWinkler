@@ -4,6 +4,7 @@ include CMakeLists.txt
 include README.md
 include LICENSE
 include pyproject.toml
+include _custom_build/backend.py
 include src/jarowinkler/py.typed
 
 recursive-include src/jarowinkler CMakeLists.txt
