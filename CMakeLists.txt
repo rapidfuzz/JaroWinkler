@@ -16,7 +16,7 @@ include(FetchContent)
 
 set(JW_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-find_package(jaro_winkler 1.0.1 QUIET)
+find_package(jaro_winkler 1.0.2 QUIET)
 if (jaro_winkler_FOUND)
     message("Using system supplied version of jaro_winkler")
 else()
