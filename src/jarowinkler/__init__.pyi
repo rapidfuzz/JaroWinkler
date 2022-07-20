@@ -5,8 +5,8 @@ __license__: str
 __version__: str
 
 _StringType = Sequence[Hashable]
-_S1 = TypeVar("S1")
-_S2 = TypeVar("S2")
+_S1 = TypeVar("_S1")
+_S2 = TypeVar("_S2")
 
 def jaro_similarity(
     s1: _S1, s2: _S2, *,
