@@ -35,7 +35,7 @@ jobs:
 
       - name: Test type stubs
         run: |
-          python -m mypy.stubtest jarowinkler
+          python -m mypy.stubtest jarowinkler --ignore-missing-stub
 
       - name: Test with pytest
         run: |
