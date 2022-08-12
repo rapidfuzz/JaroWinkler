@@ -11,7 +11,7 @@ with open('README.md', 'rt', encoding="utf8") as f:
 
 setup_args = {
     "name": "jarowinkler",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "url": "https://github.com/maxbachmann/JaroWinkler",
     "author": "Max Bachmann",
     "author_email": "pypi@maxbachmann.de",

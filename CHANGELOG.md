@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.2.1] - 2022-08-12
+#### Changed
+- Added support for Python3.11
+
 ### [1.2.0] - 2022-07-19
 #### Changed
 - added in-tree build backend to install cmake and ninja only when it is not installed yet
