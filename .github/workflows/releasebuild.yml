@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - build_sdist
+
   release:
     types:
       - published
