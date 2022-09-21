@@ -38,7 +38,7 @@ jobs:
           git apply ./tools/sdist.patch
           pip install build; python -m build --sdist
           # test whether tarball contains all files required for compiling
-          pip install dist/jarowinkler-*.tar.gz
+          pip install dist/jarowinkler-*.tar.gz -vvv
 
       - name: Test type stubs
         run: |
