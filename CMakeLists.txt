@@ -6,7 +6,6 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 project(jarowinkler LANGUAGES C CXX)
 
-find_package(PythonExtensions REQUIRED)
 if(CMAKE_VERSION VERSION_LESS 3.18)
     find_package(Python COMPONENTS Interpreter Development REQUIRED)
 else()
