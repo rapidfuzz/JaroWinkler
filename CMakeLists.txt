@@ -1,13 +1,18 @@
-cmake_minimum_required(VERSION 3.15...3.24)
+cmake_minimum_required(VERSION 3.12...3.24)
 
-set(Python_FIND_IMPLEMENTATIONS CPython PyPy)
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment version")
-endif()
+set(SKBUILD_LINK_LIBRARIES_KEYWORD PRIVATE)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 project(jarowinkler LANGUAGES C CXX)
 
-find_package(Python COMPONENTS Interpreter Development.Module)
+find_package(PythonExtensions REQUIRED)
+if(CMAKE_VERSION VERSION_LESS 3.18)
+    find_package(Python COMPONENTS Interpreter Development REQUIRED)
+else()
+    find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
+endif()
+
 include(FetchContent)
 
 set(JW_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
