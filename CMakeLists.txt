@@ -9,8 +9,16 @@ project(jarowinkler LANGUAGES C CXX)
 if(CMAKE_VERSION VERSION_LESS 3.18)
     find_package(Python COMPONENTS Interpreter Development REQUIRED)
 else()
+    set(Python_ARTIFACTS_INTERACTIVE TRUE)
     find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
 endif()
+
+message(STATUS "Orignal SOABI: ${Python_SOABI}")
+string(TOLOWER "${CMAKE_SYSTEM_NAME}" lower_system_name)
+if(NOT Python_SOABI MATCHES "${lower_system_name}$")
+    set(Python_SOABI "${Python_SOABI}-${lower_system_name}")
+endif()
+message(STATUS "New SOABI: ${Python_SOABI}")
 
 include(FetchContent)
 
