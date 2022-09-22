@@ -14,16 +14,13 @@ else()
 endif()
 
 if("${Python_INTERPRETER_ID}" STREQUAL "PyPy")
+    message(STATUS "PyPy SOABI: ${Python_SOABI}")
     execute_process(
         COMMAND "${Python_EXECUTABLE}" -c
                 "import sysconfig; print(sysconfig.get_config_var('EXT_SUFFIX').split('.')[1])"
-        OUTPUT_VARIABLE _platform_tag
+        OUTPUT_VARIABLE Python_SOABI
         OUTPUT_STRIP_TRAILING_WHITESPACE COMMAND_ECHO STDOUT)
-    message(STATUS "PyPy SOABI: ${Python_SOABI}")
-    if(NOT Python_SOABI MATCHES "${_platform_tag}$")
-        set(Python_SOABI "${Python_SOABI}-${_platform_tag}")
-        message(STATUS "New SOABI: ${Python_SOABI}")
-    endif()
+    message(STATUS "Corrected SOABI: ${Python_SOABI}")
 endif()
 
 include(FetchContent)
