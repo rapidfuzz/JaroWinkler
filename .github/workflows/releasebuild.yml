@@ -38,7 +38,7 @@ jobs:
           git apply ./tools/sdist.patch
           pip install build; python -m build --sdist
           # test whether tarball contains all files required for compiling
-          pip install dist/jarowinkler-*.tar.gz
+          pip install dist/jarowinkler-*.tar.gz -vvv
 
       - name: Test type stubs
         run: |
@@ -70,14 +70,6 @@ jobs:
           - arch: auto32
             python_tag: "pp38-*"
           - arch: auto32
-            python_tag: "pp39-*"
-
-          # PyPy Windows is currently broken in scikit-build
-          - arch: auto64
-            python_tag: "pp37-*"
-          - arch: auto64
-            python_tag: "pp38-*"
-          - arch: auto64
             python_tag: "pp39-*"
     env:
       CIBW_BUILD: ${{matrix.python_tag}}
