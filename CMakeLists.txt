@@ -13,7 +13,7 @@ else()
     find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
 endif()
 
-if("${Python_INTERPRETER_ID}" STREQUALS "PyPy")
+if("${Python_INTERPRETER_ID}" STREQUAL "PyPy")
     execute_process(
         COMMAND "${Python_EXECUTABLE}" -c
                 "import sysconfig; print(sysconfig.get_config_var('MULTIARCH'))"
