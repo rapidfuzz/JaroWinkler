@@ -15,7 +15,7 @@ endif()
 
 message(STATUS "Orignal SOABI: ${Python_SOABI}")
 string(TOLOWER "${CMAKE_SYSTEM_NAME}" lower_system_name)
-if(NOT Python_SOABI MATCHES "${lower_system_name}$")
+if(NOT Python_SOABI MATCHES "${lower_system_name}")
     set(Python_SOABI "${Python_SOABI}-${lower_system_name}")
 endif()
 message(STATUS "New SOABI: ${Python_SOABI}")
