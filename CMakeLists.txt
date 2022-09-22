@@ -13,12 +13,18 @@ else()
     find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
 endif()
 
-message(STATUS "Orignal SOABI: ${Python_SOABI}")
-string(TOLOWER "${CMAKE_SYSTEM_NAME}" lower_system_name)
-if(NOT Python_SOABI MATCHES "${lower_system_name}")
-    set(Python_SOABI "${Python_SOABI}-${lower_system_name}")
+if("${Python_INTERPRETER_ID}" STREQUALS "PyPy")
+    execute_process(
+        COMMAND "${Python_EXECUTABLE}" -c
+                "import sysconfig; print(sysconfig.get_config_var('MULTIARCH'))"
+        OUTPUT_VARIABLE _multiarch
+        OUTPUT_STRIP_TRAILING_WHITESPACE COMMAND_ECHO STDOUT)
+    message(STATUS "PyPy SOABI: ${Python_SOABI}")
+    if(NOT Python_SOABI MATCHES "${_multiarch}$")
+        set(Python_SOABI "${Python_SOABI}-${_multiarch}")
+        message(STATUS "New SOABI: ${Python_SOABI}")
+    endif()
 endif()
-message(STATUS "New SOABI: ${Python_SOABI}")
 
 include(FetchContent)
 
