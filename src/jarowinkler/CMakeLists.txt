@@ -2,6 +2,7 @@ function(create_cython_target _name)
     if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/${_name}.cxx)
         set(${_name} ${CMAKE_CURRENT_LIST_DIR}/${_name}.cxx PARENT_SCOPE)
     else()
+        find_package(PythonExtensions REQUIRED)
         find_package(Cython REQUIRED)
         # should use target_include_directories once this is supported by scikit-build
         include_directories(${JW_BASE_DIR}/jarowinkler)
