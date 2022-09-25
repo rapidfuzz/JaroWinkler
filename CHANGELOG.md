@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.2.2] - 2022-08-25
+#### Changed
+- modernize cmake build to fix most conda-forge builds
+
 ### [1.2.1] - 2022-08-12
 #### Changed
 - Added support for Python3.11
