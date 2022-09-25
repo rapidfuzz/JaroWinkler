@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.12...3.24)
 
 set(SKBUILD_LINK_LIBRARIES_KEYWORD PRIVATE)
-
+set(Python_FIND_IMPLEMENTATIONS CPython PyPy)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 project(jarowinkler LANGUAGES C CXX)
