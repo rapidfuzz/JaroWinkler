@@ -1,5 +1,9 @@
 ## Changelog
 
+### [1.2.3] - 2022-08-27
+#### Fixed
+- fix support for cmake versions below 3.17
+
 ### [1.2.2] - 2022-08-25
 #### Changed
 - modernize cmake build to fix most conda-forge builds
