@@ -31,7 +31,7 @@ cmake_wheels = {
 
 ninja_wheels = {
     "win_amd64",
-    "win32.whl",
+    "win32",
     "musllinux_1_1_x86_64",
     "musllinux_1_1_s390x",
     "musllinux_1_1_ppc64le",
