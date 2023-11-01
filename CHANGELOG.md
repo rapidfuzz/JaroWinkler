@@ -1,5 +1,11 @@
 ## Changelog
 
+### [2.0.0] - 2023-11-
+#### Changed
+- use rapidfuzz to deduplicate the implementations
+- add support for Python 3.11 and Python 3.12
+- remove support for Python 3.6 and 3.7
+
 ### [1.2.3] - 2022-08-27
 #### Fixed
 - fix support for cmake versions below 3.17

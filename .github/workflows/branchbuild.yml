@@ -1,9 +1,12 @@
-name: Test Build
+name: Build
 
 on:
   push:
-    branches-ignore:
-      - main
+  pull_request:
+  release:
+    types:
+      - published
+
 
 jobs:
   tests:
@@ -25,13 +28,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest hypothesis mypy
+          pip install buildpytest hypothesis mypy
 
       - name: build
         run: |
-          pip install build; python -m build --sdist
-          # test whether tarball contains all files required for compiling
-          pip install dist/jarowinkler-*.tar.gz -v
+          python -m build
+          pip install dist/*.tar.gz -v
+          pip install dist/*.whl -v
 
       - name: Test type stubs
         run: |
@@ -40,3 +43,31 @@ jobs:
       - name: Test with pytest
         run: |
           pytest tests
+
+  deploy:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: [tests]
+    name: deploy wheels to pypi
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build
+
+    - name: Build package
+      run: |
+        python -m build
+        pip install dist/*.tar.gz -v
+        pip install dist/*.whl -v
+
+    - name: Publish package
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_PASSWORD }}

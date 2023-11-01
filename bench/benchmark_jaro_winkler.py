@@ -15,7 +15,7 @@ def benchmark(name, func, setup, lengths, count):
     return results
 
 setup ="""
-from jarowinkler import JaroWinkler
+from jarowinkler import jarowinkler_similarity
 import jellyfish
 import Levenshtein
 import string
@@ -30,7 +30,7 @@ lengths = list(range(1,512,4))
 count = 4000
 
 time_jarowinkler = benchmark("jarowinkler",
-        '[JaroWinkler.similarity(a, b) for b in b_list]',
+        '[jarowinkler_similarity(a, b) for b in b_list]',
         setup, lengths, count)
 
 # this gets very slow, so only benchmark it for smaller values
@@ -38,15 +38,10 @@ time_jellyfish = benchmark("jellyfish",
         '[jellyfish.jaro_winkler(a, b) for b in b_list]',
         setup, list(range(1,128,4)), count) + [np.NaN] * 96
 
-time_python_levenshtein = benchmark("python-Levenshtein",
-        '[Levenshtein.jaro_winkler(a, b) for b in b_list]',
-        setup, list(range(1,256,4)), count) + [np.NaN] * 64
-
 df = pandas.DataFrame(data={
     "length": lengths,
     "jarowinkler": time_jarowinkler,
-    "jellyfish": time_jellyfish,
-    "python-Levenshtein": time_python_levenshtein
+    "jellyfish": time_jellyfish
 })
 
 df.to_csv("results/jaro_winkler.csv", sep=',',index=False)
