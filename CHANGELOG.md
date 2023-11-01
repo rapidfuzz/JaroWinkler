@@ -1,6 +1,6 @@
 ## Changelog
 
-### [2.0.0] - 2023-11-
+### [2.0.0] - 2023-11-01
 #### Changed
 - use rapidfuzz to deduplicate the implementations
 - add support for Python 3.11 and Python 3.12
