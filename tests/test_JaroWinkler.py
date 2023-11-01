@@ -16,7 +16,7 @@ class JaroWinklerTest(unittest.TestCase):
         self._jaro_winkler_similarity([0, -1], [0, -2], 0.66666)
 
     def test_edge_case_lengths(self):
-        self._jaro_winkler_similarity("", "", 0)
+        self._jaro_winkler_similarity("", "", 1)
         self._jaro_winkler_similarity("0", "0", 1)
         self._jaro_winkler_similarity("00", "00", 1)
         self._jaro_winkler_similarity("0", "00", 0.85)

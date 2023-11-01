@@ -10,8 +10,11 @@ def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
 
 
 def jaro_similarity(P, T):
-    P_flag = [0] * (len(P) + 1)
-    T_flag = [0] * (len(T) + 1)
+    if not P and not T:
+        return 1.0
+
+    P_flag = [False] * (len(P) + 1)
+    T_flag = [False] * (len(T) + 1)
 
     Bound = max(len(P), len(T)) // 2
     Bound = max(Bound - 1, 0)
@@ -23,8 +26,8 @@ def jaro_similarity(P, T):
 
         for j in range(lowlim, hilim + 1):
             if not P_flag[j] and P[j] == T[i]:
-                T_flag[i] = 1
-                P_flag[j] = 1
+                T_flag[i] = True
+                P_flag[j] = True
                 CommonChars += 1
                 break
 
