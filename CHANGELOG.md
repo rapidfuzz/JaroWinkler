@@ -1,5 +1,9 @@
 ## Changelog
 
+### [2.0.1] - 2023-11-02
+#### Fixed
+- fix version requirement for rapidfuzz
+
 ### [2.0.0] - 2023-11-01
 #### Changed
 - use rapidfuzz to deduplicate the implementations
