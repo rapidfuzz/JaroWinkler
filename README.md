@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://github.com/maxbachmann/JaroWinkler/actions">
     <img src="https://github.com/maxbachmann/JaroWinkler/workflows/Build/badge.svg"
-         alt="Continous Integration">
+         alt="Continuous Integration">
   </a>
   <a href="https://pypi.org/project/jarowinkler/">
     <img src="https://img.shields.io/pypi/v/jarowinkler"
@@ -60,7 +60,7 @@ pip install git+https://github.com/maxbachmann/JaroWinkler.git@main
 
 ## 📖 Usage
 
-Any algorithms in JaroWinkler can not only be used with strings, but with any arbitary sequences of hashable objects:
+Any algorithms in JaroWinkler can not only be used with strings, but with any arbitrary sequences of hashable objects:
 ```python
 from jarowinkler import jarowinkler_similarity
 
