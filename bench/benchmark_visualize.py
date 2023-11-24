@@ -11,7 +11,7 @@ ax=df.plot(x="length")
 
 plt.xticks(list(range(0, 513, 64)))
 
-plt.title("Performance comparision of the \nJaro-Winkler similarity in different libraries")
+plt.title("Performance comparison of the \nJaro-Winkler similarity in different libraries")
 plt.xlabel("string length [in characters]")
 plt.ylabel("runtime [μs]")
 ax.set_xlim(xmin=0)
