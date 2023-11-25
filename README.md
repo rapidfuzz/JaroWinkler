@@ -25,7 +25,7 @@
 
 
 
-## :zap: Quickstart
+## ⚡ Quickstart
 ```python
 >>> from jarowinkler import *
 
