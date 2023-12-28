@@ -3,8 +3,8 @@
  JaroWinkler
 </h1>
 <p align="center">
-  <a href="https://github.com/maxbachmann/JaroWinkler/actions">
-    <img src="https://github.com/maxbachmann/JaroWinkler/workflows/Build/badge.svg"
+  <a href="https://github.com/rapidfuzz/JaroWinkler/actions">
+    <img src="https://github.com/rapidfuzz/JaroWinkler/workflows/Build/badge.svg"
          alt="Continuous Integration">
   </a>
   <a href="https://pypi.org/project/jarowinkler/">
@@ -15,13 +15,13 @@
     <img src="https://img.shields.io/pypi/pyversions/jarowinkler"
          alt="Python versions">
   </a><br/>
-  <a href="https://github.com/maxbachmann/JaroWinkler/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/maxbachmann/JaroWinkler"
+  <a href="https://github.com/rapidfuzz/JaroWinkler/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/rapidfuzz/JaroWinkler"
          alt="GitHub license">
   </a>
 </p>
 
-<h4 align="center">JaroWinkler is a library to calculate the Jaro and Jaro-Winkler similarity. It is easy to use, is far more performant than all alternatives and is designed to integrate seemingless with <a href="https://github.com/maxbachmann/RapidFuzz">RapidFuzz</a>.</h4>
+<h4 align="center">JaroWinkler is a library to calculate the Jaro and Jaro-Winkler similarity. It is easy to use, is far more performant than all alternatives and is designed to integrate seemingless with <a href="https://github.com/rapidfuzz/RapidFuzz">RapidFuzz</a>.</h4>
 
 
 
@@ -40,7 +40,7 @@
 The implementation is based on a novel approach to calculate the Jaro-Winkler similarity using bitparallelism. This is significantly faster than the original approach used in other libraries. The following benchmark shows the performance difference to jellyfish and python-Levenshtein. 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/maxbachmann/JaroWinkler/main/bench/results/JaroWinkler.svg?sanitize=true" alt="Benchmark JaroWinkler">
+<img src="https://raw.githubusercontent.com/rapidfuzz/JaroWinkler/main/bench/results/JaroWinkler.svg?sanitize=true" alt="Benchmark JaroWinkler">
 </p>
 
 ## ⚙️ Installation
@@ -55,7 +55,7 @@ JaroWinkler provides binary wheels for all common platforms.
 
 For a source build (for example from a SDist packaged) you only require a C++14 compatible compiler. You can install directly from GitHub if you would like.
 ```
-pip install git+https://github.com/maxbachmann/JaroWinkler.git@main
+pip install git+https://github.com/rapidfuzz/JaroWinkler.git@main
 ```
 
 ## 📖 Usage
@@ -106,7 +106,7 @@ array([[1.       , 0.9037037],
 ## 👍 Contributing
 
 PRs are welcome!
-- Found a bug? Report it in form of an [issue](https://github.com/maxbachmann/JaroWinkler/issues) or even better fix it!
+- Found a bug? Report it in form of an [issue](https://github.com/rapidfuzz/JaroWinkler/issues) or even better fix it!
 - Can make something faster? Great! Just avoid external dependencies and remember that existing functionality should still work.
 - Something else that do you think is good? Do it! Just make sure that CI passes and everything from the README is still applicable (interface, features, and so on).
 - Have no time to code? Tell your friends and subscribers about JaroWinkler. More users, more contributions, more amazing features.
@@ -114,4 +114,4 @@ PRs are welcome!
 Thank you :heart:
 
 ## ⚠️ License
-Copyright 2021 - present [maxbachmann](https://github.com/maxbachmann). `JaroWinkler` is free and open-source software licensed under the [MIT License](https://github.com/maxbachmann/JaroWinkler/blob/main/LICENSE).
+Copyright 2021 - present [maxbachmann](https://github.com/maxbachmann). `JaroWinkler` is free and open-source software licensed under the [MIT License](https://github.com/rapidfuzz/JaroWinkler/blob/main/LICENSE).
